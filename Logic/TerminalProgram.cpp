@@ -1,6 +1,7 @@
 #include "TerminalProgram.h"
+
 #include "../Library/FileReader.h"
-#include "MinimalPath.h"
+#include "MinimalTrianglePath.h"
 
 void TerminalProgram::initialiseTerminal()
 {
@@ -36,37 +37,44 @@ void TerminalProgram::initialiseTerminal()
                     for(const auto &aFileLine : contentOfFile)  {   cout << CONTENT_READ_SPACE << aFileLine << endl;  }
                     cout << CONTENT_READ_SPACE << "EOF \n" << endl;
 
-                    MinimalPath minimalPath;
+                    MinimalTrianglePath minimalTrianglePath;
 
-                    switch(minimalPath.createTriangleTree(contentOfFile))
+                    switch(minimalTrianglePath.createTriangleTree(contentOfFile))
                     {
-                        case MinimalPath::SUCCESSFUL:
+                        case MinimalTrianglePath::SUCCESSFUL:
                         {
                             cout << "The Triangle Tree was successfully created" << endl;
+
+                            MinimalTrianglePath::MinimalPath minimalPath = minimalTrianglePath.calculateMinimalPath();
+
+                            cout << "Minimal Path is: ";
+                            for(auto i = (int)(minimalPath.path.size() - 1); i >= 0; i --)
+                            {
+                                cout << minimalPath.path[i];
+                                if (i != 0) {   cout << ", ";   }
+                            }
+                            cout << "\nThe minimal Path has a weight of: " << minimalPath.pathCost << endl;
+
                             break;
                         }
 
-                        case MinimalPath::INCORRECT_NUMBER_OF_ELEMENTS:
+                        case MinimalTrianglePath::INCORRECT_NUMBER_OF_ELEMENTS:
                         {
                             cout << "The given file has incorrect number of elements" << endl;
                             break;
                         }
 
-                        case MinimalPath::CONSISTS_OF_LETTERS:
+                        case MinimalTrianglePath::CONSISTS_OF_LETTERS:
                         {
                             cout << "The given file consists of letters" << endl;
                             break;
                         }
                     }
-
-                    // TODO Executing Minimal Path
                 }
                 else
                 {
                     cout << "The triangle file was not found" << endl;
                 }
-
-                // TODO Calculate minimal path
 
                 break;
             }
