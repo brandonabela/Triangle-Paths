@@ -1,3 +1,4 @@
+#include <fstream>
 #include "FileReader.h"
 
 vector<string> FileReader::readFile(char *filePath)
