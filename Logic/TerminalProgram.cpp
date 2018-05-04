@@ -1,5 +1,6 @@
 #include "TerminalProgram.h"
 #include "../Library/FileReader.h"
+#include "MinimalPath.h"
 
 void TerminalProgram::initialiseTerminal()
 {
@@ -34,6 +35,29 @@ void TerminalProgram::initialiseTerminal()
                     cout << "Contents of given file are: " << endl;
                     for(const auto &aFileLine : contentOfFile)  {   cout << CONTENT_READ_SPACE << aFileLine << endl;  }
                     cout << CONTENT_READ_SPACE << "EOF \n" << endl;
+
+                    MinimalPath minimalPath;
+
+                    switch(minimalPath.createTriangleTree(contentOfFile))
+                    {
+                        case MinimalPath::SUCCESSFUL:
+                        {
+                            cout << "The Triangle Tree was successfully created" << endl;
+                            break;
+                        }
+
+                        case MinimalPath::INCORRECT_NUMBER_OF_ELEMENTS:
+                        {
+                            cout << "The given file has incorrect number of elements" << endl;
+                            break;
+                        }
+
+                        case MinimalPath::CONSISTS_OF_LETTERS:
+                        {
+                            cout << "The given file consists of letters" << endl;
+                            break;
+                        }
+                    }
 
                     // TODO Executing Minimal Path
                 }
