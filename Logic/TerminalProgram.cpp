@@ -1,4 +1,5 @@
 #include "TerminalProgram.h"
+#include "../Library/FileReader.h"
 
 void TerminalProgram::initialiseTerminal()
 {
@@ -10,14 +11,39 @@ void TerminalProgram::initialiseTerminal()
     while (!requestToQuit)
     {
         cout << "terminal> ";
-        cin >> commandToProcess;
+        getline(cin, commandToProcess);
 
         switch(handleCommandType(commandToProcess))
         {
             case FIND_MINIMAL_COMMAND:
             {
+                string filePath;
                 cout << "Calculating minimal path" << endl;
-                // TODO Calculate program
+
+                if (commandToProcess.length() > 6)
+                {
+                    filePath = commandToProcess.substr(6, commandToProcess.length());
+                    vector<string> contentOfFile = FileReader::readFile(const_cast<char *>(filePath.c_str()));
+
+                    if (contentOfFile.empty())
+                    {
+                        cout << "The file path you have inputted was invalid" << endl;
+                        break;
+                    }
+
+                    cout << "Contents of given file are: " << endl;
+                    for(const auto &aFileLine : contentOfFile)  {   cout << aFileLine << endl;  }
+                    cout << "EOF" << endl;
+
+                    // TODO Validate given file
+                }
+                else
+                {
+                    cout << "The triangle file was not found" << endl;
+                }
+
+                // TODO Calculate minimal path
+
                 break;
             }
 
@@ -49,22 +75,8 @@ void TerminalProgram::initialiseTerminal()
 
 TerminalProgram::CommandType TerminalProgram::handleCommandType(string commandToProcess)
 {
-    if (commandToProcess.substr(0, 5) == FIND_MINIMAL_INPUT)
-    {
-        // TODO Process file command
-        // TODO Validate given file
-        return FIND_MINIMAL_COMMAND;
-    }
-    else if (commandToProcess.substr(0, 5) == HELP_INPUT)
-    {
-        return HELP_COMMAND;
-    }
-    else if (commandToProcess.substr(0, 5) == QUIT_INPUT)
-    {
-        return QUIT_COMMAND;
-    }
-    else
-    {
-        return INVALID_COMMAND;
-    }
+    if (commandToProcess.substr(0, 5) == FIND_MINIMAL_INPUT)    {   return FIND_MINIMAL_COMMAND;    }
+    else if (commandToProcess.substr(0, 5) == HELP_INPUT)       {   return HELP_COMMAND;            }
+    else if (commandToProcess.substr(0, 5) == QUIT_INPUT)       {   return QUIT_COMMAND;            }
+    else                                                        {   return INVALID_COMMAND;         }
 }
