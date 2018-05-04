@@ -83,7 +83,7 @@ void TerminalProgram::initialiseTerminal()
             {
                 cout << "1. " << FIND_MINIMAL_INPUT << " <triangleFile>: To calculate the minimal path of a given file" << endl;
                 cout << "2. " << HELP_INPUT << " : To display all the help commands" << endl;
-                cout << "3. " << QUIT_INPUT << " : To Exit the Terminal PRogram" << endl;
+                cout << "3. " << QUIT_INPUT << " : To Exit the Terminal Program" << endl;
                 break;
             }
 
