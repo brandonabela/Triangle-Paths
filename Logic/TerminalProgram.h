@@ -5,6 +5,8 @@
 #define HELP_INPUT          "#help"
 #define QUIT_INPUT          "#quit"
 
+#define CONTENT_READ_SPACE  "   "
+
 #include <iostream>
 
 using namespace std;

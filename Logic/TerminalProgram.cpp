@@ -32,10 +32,10 @@ void TerminalProgram::initialiseTerminal()
                     }
 
                     cout << "Contents of given file are: " << endl;
-                    for(const auto &aFileLine : contentOfFile)  {   cout << aFileLine << endl;  }
-                    cout << "EOF" << endl;
+                    for(const auto &aFileLine : contentOfFile)  {   cout << CONTENT_READ_SPACE << aFileLine << endl;  }
+                    cout << CONTENT_READ_SPACE << "EOF \n" << endl;
 
-                    // TODO Validate given file
+                    // TODO Executing Minimal Path
                 }
                 else
                 {
