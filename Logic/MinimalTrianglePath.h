@@ -16,21 +16,30 @@ public:
         CONSISTS_OF_LETTERS
     } CreateTriangleTreeError;
 
-    typedef struct minimalPath
+    typedef struct minimalPathStructure
     {
-        int pathCost;
         vector<int> path;
+
+        explicit minimalPathStructure(int path)
+        {
+            MinimalPath::path.push_back(path);
+        }
+
+        int computePathCost()
+        {
+            int pathCost = 0;
+            for (int aPathValue : path) {   pathCost += aPathValue; }
+            return pathCost;
+        }
     } MinimalPath;
 
 private:
     vector<vector<int>> triangleTree;
-    vector<MinimalPath> minimalPathVector;
 
 public:
     CreateTriangleTreeError createTriangleTree(vector<string> treeToCreate);
 
     MinimalPath calculateMinimalPath();
-    void calculateRecursivePath(MinimalPath minimalPath, int valueIndex, int currentDepth, bool isWithinTree);
 };
 
 

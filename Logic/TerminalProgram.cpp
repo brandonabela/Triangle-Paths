@@ -12,7 +12,7 @@ void TerminalProgram::initialiseTerminal()
 
     while (!requestToQuit)
     {
-        cout << "terminal> ";
+        cout << "C:\\> ";
         getline(cin, commandToProcess);
 
         switch(handleCommandType(commandToProcess))
@@ -53,7 +53,7 @@ void TerminalProgram::initialiseTerminal()
                                 cout << minimalPath.path[i];
                                 if (i != 0) {   cout << ", ";   }
                             }
-                            cout << "\nThe minimal Path has a weight of: " << minimalPath.pathCost << endl;
+                            cout << "\nThe minimal Path has a weight of: " << minimalPath.computePathCost() << endl;
 
                             break;
                         }
@@ -81,7 +81,7 @@ void TerminalProgram::initialiseTerminal()
 
             case HELP_COMMAND:
             {
-                cout << "1. " << FIND_MINIMAL_INPUT << " <triangleFile>: To calculate the minimal path of a given file" << endl;
+                cout << "1. " << FIND_MINIMAL_INPUT << " <triangleFile> : To calculate the minimal path of a given text file" << endl;
                 cout << "2. " << HELP_INPUT << " : To display all the help commands" << endl;
                 cout << "3. " << QUIT_INPUT << " : To Exit the Terminal Program" << endl;
                 break;

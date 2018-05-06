@@ -30,52 +30,42 @@ MinimalTrianglePath::createTriangleTreeError MinimalTrianglePath::createTriangle
     return SUCCESSFUL;
 }
 
-MinimalTrianglePath::minimalPath MinimalTrianglePath::calculateMinimalPath()
+MinimalTrianglePath::MinimalPath MinimalTrianglePath::calculateMinimalPath()
 {
-    int lowestCostIndex = 0;
-    auto triangleTreeSize = (int) triangleTree.size() - 1;
+    vector<MinimalPath> minimalPath;
 
-    for (auto i = (int)(triangleTree[triangleTreeSize].size() - 1); i >= 0; i --)
+    for (int bottomTriangleValue : triangleTree[triangleTree.size() - 1])
     {
-        MinimalPath minimalPath;
-        minimalPath.pathCost = triangleTree[triangleTreeSize][i];
-        minimalPath.path.push_back(triangleTree[triangleTreeSize][i]);
-
-        calculateRecursivePath(minimalPath, i, triangleTreeSize - 1, !(i == 0 || i == triangleTree[triangleTreeSize].size() - 1));
+        minimalPath.emplace_back(minimalPathStructure(bottomTriangleValue));
     }
 
-    for (int i = 0; i < minimalPathVector.size(); i ++)
+    for (int i = triangleTree.size() - 2; i >= 0; --i)
     {
-        if (minimalPathVector[i].pathCost < minimalPathVector[lowestCostIndex].pathCost)    {   lowestCostIndex = i;    }
-    }
+        vector<int> usedIndexVector;
 
-    return minimalPathVector[lowestCostIndex];
-}
-
-void MinimalTrianglePath::calculateRecursivePath(MinimalPath minimalPath, int valueIndex, int currentDepth, bool isWithinTree)
-{
-    if (currentDepth < 0)
-    {
-        minimalPathVector.push_back(minimalPath);
-    }
-    else
-    {
-        MinimalPath minimalPathInner = minimalPath;
-
-        int leftIndex = 0;
-        if (valueIndex > 0) {   leftIndex = valueIndex - 1;     }
-
-        minimalPath.pathCost += triangleTree[currentDepth][leftIndex];
-        minimalPath.path.push_back(triangleTree[currentDepth][leftIndex]);
-
-        calculateRecursivePath(minimalPath, leftIndex, currentDepth - 1, !(leftIndex == 0 || leftIndex == triangleTree[currentDepth].size() - 1));
-
-        if(isWithinTree)
+        for (int j = 0; j < triangleTree[i].size(); ++j)
         {
-            minimalPathInner.pathCost += triangleTree[currentDepth][valueIndex];
-            minimalPathInner.path.push_back(triangleTree[currentDepth][valueIndex]);
+            int indexToUse = (minimalPath[j].computePathCost() < minimalPath[j + 1].computePathCost()) ? j : j + 1;
 
-            calculateRecursivePath(minimalPathInner, valueIndex, currentDepth - 1, !(valueIndex == 0 || valueIndex == triangleTree[currentDepth].size() - 1));
+            if (0 < j && usedIndexVector[j - 1] == indexToUse)
+            {
+                indexToUse ++;
+                minimalPath[indexToUse].path = minimalPath[indexToUse - 1].path;
+            }
+
+            minimalPath[indexToUse].path.emplace_back(triangleTree[i][j]);
+            usedIndexVector.push_back(indexToUse);
+        }
+
+        for (int j = 0; j < triangleTree[i].size() ; j++)
+        {
+            if(usedIndexVector[j] != j)
+            {
+                minimalPath.erase(minimalPath.begin() + j);
+                break;
+            }
         }
     }
+
+    return minimalPath[0];
 }
