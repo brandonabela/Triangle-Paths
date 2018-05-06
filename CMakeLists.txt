@@ -3,4 +3,5 @@ project(TrianglePath)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(TrianglePath main.cpp Logic/TerminalProgram.cpp Logic/TerminalProgram.h Library/FileReader.cpp Library/FileReader.h Logic/MinimalTrianglePath.cpp Logic/MinimalTrianglePath.h)
+set(TrianglePath main.cpp Logic/TerminalProgram.cpp Logic/TerminalProgram.h Library/FileReader.cpp Library/FileReader.h Logic/MinimalTrianglePath.cpp Logic/MinimalTrianglePath.h)
+add_executable(TrianglePath ${TrianglePath})
