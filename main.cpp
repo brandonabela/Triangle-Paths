@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// Method responsible for starting the entire program
 int main()
 {
     cout << "------------------------------------------------------------" << endl;
@@ -10,7 +11,7 @@ int main()
     cout << "------------------------------------------------------------" << endl;
 
     TerminalProgram terminalProgram;
-    terminalProgram.initialiseTerminal();
+    terminalProgram.initialiseTerminal(); // Loading the terminal program
 
     cout << "------------------------------------------------------------" << endl;
     cout << "|           Stopped Running Triangle Path Program           |" << endl;

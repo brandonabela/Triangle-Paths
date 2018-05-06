@@ -14,6 +14,7 @@ using namespace std;
 class TerminalProgram
 {
 private:
+    // An enum to determine the type of command the user has inputted
     typedef enum commandType
     {
         FIND_MINIMAL_COMMAND,
@@ -22,9 +23,16 @@ private:
         INVALID_COMMAND
     } CommandType;
 
+    /** Method which is responsible for determining the type of command the user has inputted and returning the type
+     *  of command the user has inputted
+     *
+     * @param commandToProcess the entire string the user has inputted in the terminal program
+     * @return the type of command the user has inputted
+     */
     CommandType handleCommandType(string commandToProcess);
 
 public:
+    // Method which is responsible for booting a terminal like program
     void initialiseTerminal();
 };
 
